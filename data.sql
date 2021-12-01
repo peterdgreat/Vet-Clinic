@@ -98,11 +98,21 @@ SET species = 'unspecified';
     SELECT * FROM animals;
 -- Inside a transaction:
 -- Update the animals table by setting the species column to digimon for all animals that have a name ending in mon.
-
+BEGIN;
+UPDATE animals
+SET species = 'digimon'
+WHERE name LIKE '%mon';
 
 -- Update the animals table by setting the species column to pokemon for all animals that don't have species already set.
+UPDATE animals
+set species = 'pokemon'
+WHERE species IS NULL;
 -- Commit the transaction.
+
+COMMIT;
+
 -- Verify that change was made and persists after commit.
+SELECT * FROM animals;
 -- Now, take a deep breath and... Inside a transaction delete all records in the animals table, then roll back the transaction.
 -- After the roll back verify if all records in the animals table still exist. After that you can start breath as usual ;)
 -- Inside a transaction:

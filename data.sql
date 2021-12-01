@@ -114,11 +114,27 @@ COMMIT;
 -- Verify that change was made and persists after commit.
 SELECT * FROM animals;
 -- Now, take a deep breath and... Inside a transaction delete all records in the animals table, then roll back the transaction.
+BEGIN;
+TRUNCATE animals;
+ROllBACK;
+
 -- After the roll back verify if all records in the animals table still exist. After that you can start breath as usual ;)
+SELECT * FROM animals;
 -- Inside a transaction:
+BEGIN;
 -- Delete all animals born after Jan 1st, 2022.
+DELETE FROM animals
+WHERE date_of_birth > DATE '2022-01-01';
 -- Create a savepoint for the transaction.
+SAVEPOINT savepoint_1;
 -- Update all animals' weight to be their weight multiplied by -1.
+UPDATE animals
+SET weight_kg = weight_kg * -1;
 -- Rollback to the savepoint
+ROLLBACK TO savepoint_1;
 -- Update all animals' weights that are negative to be their weight multiplied by -1.
+UPDATE animals
+SET weight_kg = weight_kg * -1
+WHERE weight_kg < 0;
 -- Commit transaction
+COMMIT;

@@ -6,7 +6,9 @@ This is a project that uses a relational database to create the data structure f
 - Animals' owners
 - Clinic employees
 - Visits
+## Schema Diagram
 
+![](Screenshot%20from%202021-12-07%2017-47-59.png)
 ## Built With
 
 - PostgreSQL
